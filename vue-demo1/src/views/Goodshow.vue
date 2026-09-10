@@ -160,6 +160,9 @@
     <div class="display_plan">
         <span>总任务数({{ totalCount }}) 已完成({{ doneCount }}) 未完成({{ pendingCount }})</span>
     </div>
+
+    <!-- vue3-layer 确认弹窗 -->
+    <S3Layer v-model="showConfirm" type="confirm" title="提示" :content="confirmMsg" :btn="['确定', '取消']" @yes="onConfirmYes" />
     <div class="plan">
         <table class="table_plan">
             <thead>
@@ -219,7 +222,10 @@ export default {
         return {
             newTask: '',
             tasks: [],
-            taskIdCounter: 0
+            taskIdCounter: 0,
+            showConfirm: false,    // 控制确认弹窗显示
+            confirmMsg: '',        // 确认弹窗内容
+            confirmIndex: -1       // 待删除的任务索引
         }
     },
     computed: {
@@ -260,10 +266,19 @@ export default {
 
             this.newTask = '' // 清空输入框
         },
-        // 删除任务
+        // 删除任务（使用vue3-layer确认弹窗）
         deleteTask(index) {
-            if (!confirm('确定要删除这条任务吗？')) return
-            this.tasks.splice(index, 1)
+            this.confirmMsg = '确定要删除这条任务吗？'
+            this.confirmIndex = index
+            this.showConfirm = true
+        },
+        // 确认删除回调
+        onConfirmYes() {
+            if (this.confirmIndex >= 0) {
+                this.tasks.splice(this.confirmIndex, 1)
+            }
+            this.showConfirm = false
+            this.confirmIndex = -1
         },
         // 切换任务状态
         toggleTask(task) {
