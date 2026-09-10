@@ -16,6 +16,10 @@ const app = createApp(App)
 
 // 全局注册组件
 app.component('S3Layer', S3Layer)
+
+// 把 layer 挂载到全局属性，这样所有组件都能通过 this.$layer 使用
+app.config.globalProperties.$layer = layer
+
 app.use(createPinia())
 app.use(router)
 

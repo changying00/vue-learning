@@ -6,6 +6,7 @@
         <p>联系方式:{{ job}}</p>
     </div>
 </template>
+
 <!--
     选项式 props 接收 父组件 向 子组件传递的数据
 
@@ -44,3 +45,107 @@ export default{
 }
 
 </script>
+
+
+<style scoped>
+.card {
+    background: linear-gradient(135deg, #F5DEB3 0%, #DEB887 30%, #D2B48C 60%, #C4A882 100%);
+    border-radius: 10px;
+    padding: 25px;
+    width: 220px;
+    min-height: 160px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid #8B7355;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* 星星装饰 */
+.card::before {
+    content: '⭐';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.card:hover::before {
+    opacity: 1;
+    transform: rotate(360deg) scale(1.2);
+}
+
+/* 底部装饰线 */
+.card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8B4513, #D2691E, #FFD700);
+    transition: width 0.4s ease;
+    border-radius: 2px;
+}
+
+.card:hover::after {
+    width: 90%;
+}
+
+/* 悬浮效果 */
+.card:hover {
+    transform: translateY(-10px) rotate(-1deg);
+    box-shadow:
+        0 15px 40px rgba(139, 69, 19, 0.4),
+        0 0 20px rgba(210, 105, 30, 0.2);
+    border-color: #D2691E;
+}
+
+/* 文字样式 */
+.card p {
+    margin: 10px 0;
+    color: #3E2723;
+    font-size: 14px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    padding-left: 15px;
+    font-family: 'Georgia', serif;
+    transition: all 0.3s ease;
+}
+
+.card:hover p {
+    color: #1a0f00;
+}
+
+/* 姓名特殊样式 */
+.card p:first-child {
+    color: #8B0000;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(139, 0, 0, 0.3);
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #8B7355;
+    padding-left: 0;
+    text-align: center;
+    background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.1), transparent);
+    padding-top: 8px;
+}
+
+/* 年龄样式 */
+.card p:nth-child(2) {
+    color: #B8860B;
+    font-weight: bold;
+}
+
+/* 职务样式 */
+.card p:nth-child(3) {
+    color: #654321;
+    font-style: italic;
+}
+</style>
